@@ -15,6 +15,8 @@
     --ember-dim: #5a3522;
     --line: #2c2a21;
     --good: #8fae72;
+    --bad: #ff8a65;
+    --bad-dim: #4a2018;
     --font-display: 'Iowan Old Style', 'Georgia', serif;
     --font-body: -apple-system, 'SF Pro Text', system-ui, sans-serif;
   }
@@ -36,6 +38,8 @@
     padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
   }
 
+  button { cursor: pointer; }
+
   .wrap {
     max-width: 480px;
     margin: 0 auto;
@@ -45,7 +49,7 @@
   /* ---------- Header ---------- */
   header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     margin-bottom: 28px;
     padding: 0 2px;
@@ -59,8 +63,12 @@
     color: var(--ink);
   }
 
-  .brand span {
-    color: var(--ember);
+  .brand span { color: var(--ember); }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
   }
 
   .today {
@@ -70,11 +78,27 @@
     letter-spacing: 0.08em;
   }
 
+  .icon-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    transition: transform 0.1s ease;
+  }
+
+  .icon-btn:active { transform: scale(0.92); }
+
   /* ---------- Monto: hero ---------- */
   .amount-stage {
     text-align: center;
     padding: 22px 0 26px;
-    position: relative;
   }
 
   .currency-row {
@@ -117,10 +141,8 @@
     opacity: 0.85;
   }
 
-  /* ---------- Tarjetas de selección ---------- */
-  .field {
-    margin-bottom: 18px;
-  }
+  /* ---------- Selección por chips ---------- */
+  .field { margin-bottom: 18px; }
 
   .field-label {
     font-size: 11px;
@@ -160,126 +182,13 @@
 
   .chip .glyph { margin-right: 6px; opacity: 0.9; }
 
-  .chip-add {
-    flex: 0 0 auto;
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: 1px dashed var(--line);
-    border-radius: 20px;
+  .chip-empty {
+    font-size: 13px;
     color: var(--ink-faint);
-    font-size: 18px;
-    line-height: 1;
-    transition: border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    padding: 10px 2px;
   }
 
-  .chip-add:active { transform: scale(0.92); border-color: var(--ember); color: var(--ember); }
-
-  /* ---------- Nueva categoría: modal ---------- */
-  .newcat-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.2s ease;
-    z-index: 50;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
-
-  .newcat-overlay.show { opacity: 1; pointer-events: auto; }
-
-  .newcat-box {
-    background: var(--bg-elev);
-    border: 1px solid var(--line);
-    border-radius: 18px;
-    padding: 22px;
-    width: 100%;
-    max-width: 340px;
-    transform: scale(0.94);
-    transition: transform 0.2s ease;
-  }
-
-  .newcat-overlay.show .newcat-box { transform: scale(1); }
-
-  .newcat-title {
-    font-family: var(--font-display);
-    font-size: 18px;
-    color: var(--ink);
-    margin-bottom: 4px;
-  }
-
-  .newcat-sub {
-    font-size: 12.5px;
-    color: var(--ink-faint);
-    margin-bottom: 16px;
-  }
-
-  .newcat-row {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  #newcat-emoji {
-    width: 52px;
-    flex-shrink: 0;
-    text-align: center;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    color: var(--ink);
-    font-size: 20px;
-    padding: 10px 0;
-    outline: none;
-  }
-
-  #newcat-nombre {
-    flex: 1;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 12px;
-    color: var(--ink);
-    font-family: var(--font-body);
-    font-size: 15px;
-    padding: 10px 14px;
-    outline: none;
-    min-width: 0;
-  }
-
-  #newcat-nombre:focus, #newcat-emoji:focus { border-color: var(--ember); }
-
-  .newcat-actions {
-    display: flex;
-    gap: 10px;
-  }
-
-  .newcat-actions button {
-    flex: 1;
-    padding: 12px 0;
-    border-radius: 12px;
-    font-size: 14px;
-    font-weight: 600;
-    font-family: var(--font-body);
-    border: none;
-  }
-
-  .newcat-cancelar {
-    background: transparent;
-    border: 1px solid var(--line) !important;
-    color: var(--ink-dim);
-  }
-
-  .newcat-crear {
-    background: var(--ember);
-    color: #1a1208;
-  }
+  .chip-empty a { color: var(--ember); text-decoration: underline; }
 
   /* ---------- Notas ---------- */
   textarea#notas {
@@ -318,9 +227,8 @@
   }
 
   .save-btn:active { transform: scale(0.98); opacity: 0.9; }
-  .save-btn:disabled { background: var(--ember-dim); color: var(--ink-faint); }
 
-  /* ---------- Toast confirmación ---------- */
+  /* ---------- Toast ---------- */
   .toast {
     position: fixed;
     bottom: 28px;
@@ -335,19 +243,14 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.25s ease, transform 0.25s ease;
-    z-index: 30;
+    z-index: 60;
     white-space: nowrap;
   }
 
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
   /* ---------- Historial ---------- */
-  .ledger {
-    margin-top: 38px;
-  }
+  .ledger { margin-top: 38px; }
 
   .ledger-head {
     display: flex;
@@ -401,16 +304,9 @@
     flex-shrink: 0;
   }
 
-  .entry-mid {
-    flex: 1;
-    min-width: 0;
-  }
+  .entry-mid { flex: 1; min-width: 0; }
 
-  .entry-cat {
-    font-size: 14.5px;
-    color: var(--ink);
-    font-weight: 500;
-  }
+  .entry-cat { font-size: 14.5px; color: var(--ink); font-weight: 500; }
 
   .entry-meta {
     font-size: 12px;
@@ -460,7 +356,7 @@
 
   .resumen-btn:active { border-color: var(--ember); color: var(--ink); }
 
-  /* ---------- Hoja de resumen ---------- */
+  /* ---------- Hojas modales (bottom sheets) ---------- */
   .sheet-overlay {
     position: fixed;
     inset: 0;
@@ -471,10 +367,7 @@
     z-index: 40;
   }
 
-  .sheet-overlay.show {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .sheet-overlay.show { opacity: 1; pointer-events: auto; }
 
   .sheet {
     position: fixed;
@@ -487,7 +380,7 @@
     padding: 14px 20px calc(28px + env(safe-area-inset-bottom));
     transform: translateY(100%);
     transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-    max-height: 82vh;
+    max-height: 86vh;
     overflow-y: auto;
     z-index: 41;
   }
@@ -513,6 +406,39 @@
     font-size: 12px;
     color: var(--ink-faint);
     margin-bottom: 20px;
+  }
+
+  .sheet-close {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 0;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--ink-dim);
+    border-radius: 14px;
+    font-size: 14px;
+    font-family: var(--font-body);
+  }
+
+  /* ---------- Resumen por método de pago ---------- */
+  .sheet-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+
+  .sheet-tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 0;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink-dim);
+    font-size: 13px;
+    font-family: var(--font-body);
+  }
+
+  .sheet-tab.active {
+    background: var(--ember-dim);
+    border-color: var(--ember);
+    color: var(--ink);
   }
 
   .sheet-total {
@@ -551,7 +477,6 @@
   }
 
   .pago-info { flex: 1; min-width: 0; }
-
   .pago-nombre { font-size: 14px; color: var(--ink); font-weight: 500; }
 
   .pago-bar-track {
@@ -585,16 +510,11 @@
     text-align: right;
   }
 
-  .sheet-close {
-    width: 100%;
-    margin-top: 18px;
-    padding: 14px 0;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    color: var(--ink-dim);
-    border-radius: 14px;
-    font-size: 14px;
-    font-family: var(--font-body);
+  .sheet-empty {
+    text-align: center;
+    padding: 24px 10px;
+    color: var(--ink-faint);
+    font-size: 13.5px;
   }
 
   .export-btn {
@@ -612,37 +532,6 @@
   }
 
   .export-btn:active { opacity: 0.7; }
-
-  .sheet-empty {
-    text-align: center;
-    padding: 24px 10px;
-    color: var(--ink-faint);
-    font-size: 13.5px;
-  }
-
-  .sheet-tabs {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 18px;
-  }
-
-  .sheet-tab {
-    flex: 1;
-    text-align: center;
-    padding: 9px 0;
-    border-radius: 10px;
-    border: 1px solid var(--line);
-    background: var(--bg);
-    color: var(--ink-dim);
-    font-size: 13px;
-    font-family: var(--font-body);
-  }
-
-  .sheet-tab.active {
-    background: var(--ember-dim);
-    border-color: var(--ember);
-    color: var(--ink);
-  }
 
   .danger-zone {
     margin-top: 26px;
@@ -677,11 +566,7 @@
 
   .confirm-box.show { display: block; }
 
-  .confirm-actions {
-    display: flex;
-    gap: 8px;
-    margin-top: 12px;
-  }
+  .confirm-actions { display: flex; gap: 8px; margin-top: 12px; }
 
   .confirm-actions button {
     flex: 1;
@@ -695,16 +580,14 @@
   }
 
   .confirm-actions .btn-danger {
-    background: #4a2018;
+    background: var(--bad-dim);
     border-color: #8a3d2c;
     color: #ffb89c;
     font-weight: 600;
   }
 
   /* ---------- Editar gasto individual ---------- */
-  .edit-field {
-    margin-bottom: 16px;
-  }
+  .edit-field { margin-bottom: 16px; }
 
   .edit-field-label {
     font-size: 11px;
@@ -727,9 +610,7 @@
     margin-bottom: 18px;
   }
 
-  .edit-amount-row .currency-sign {
-    font-size: 24px;
-  }
+  .edit-amount-row .currency-sign { font-size: 24px; }
 
   #edit-monto {
     font-family: var(--font-display);
@@ -760,11 +641,7 @@
 
   textarea#edit-notas:focus { border-color: var(--ember); }
 
-  .edit-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
+  .edit-actions { display: flex; gap: 10px; margin-top: 20px; }
 
   .edit-actions button {
     flex: 1;
@@ -776,14 +653,11 @@
     border: none;
   }
 
-  .btn-guardar-cambios {
-    background: var(--ember);
-    color: #1a1208;
-  }
+  .btn-guardar-cambios { background: var(--ember); color: #1a1208; }
 
   .btn-eliminar-gasto {
-    background: #2c1814;
-    color: #ff8a65;
+    background: var(--bad-dim);
+    color: var(--bad);
     border: 1px solid #4a2018 !important;
   }
 
@@ -795,6 +669,218 @@
     margin-bottom: 18px;
   }
 
+  /* ---------- Configuración ---------- */
+  .config-tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+
+  .config-tab {
+    flex: 1;
+    text-align: center;
+    padding: 9px 0;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--bg);
+    color: var(--ink-dim);
+    font-size: 13px;
+    font-family: var(--font-body);
+  }
+
+  .config-tab.active {
+    background: var(--ember-dim);
+    border-color: var(--ember);
+    color: var(--ink);
+  }
+
+  .config-list { margin-bottom: 16px; }
+
+  .config-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .config-item-glyph {
+    width: 30px;
+    height: 30px;
+    border-radius: 9px;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .config-item-name {
+    flex: 1;
+    font-size: 14px;
+    color: var(--ink);
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .config-item.inactive .config-item-name { color: var(--ink-faint); text-decoration: line-through; }
+  .config-item.inactive .config-item-glyph { opacity: 0.4; }
+
+  .config-item-actions { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+
+  .toggle {
+    width: 42px;
+    height: 25px;
+    border-radius: 13px;
+    background: var(--line);
+    border: none;
+    position: relative;
+    flex-shrink: 0;
+    transition: background 0.15s ease;
+  }
+
+  .toggle::after {
+    content: '';
+    position: absolute;
+    top: 2.5px;
+    left: 2.5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--ink-faint);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+
+  .toggle.on { background: var(--ember-dim); }
+
+  .toggle.on::after {
+    background: var(--ember);
+    transform: translateX(17px);
+  }
+
+  .config-item-delete {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    background: transparent;
+    border: none;
+    color: var(--ink-faint);
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .config-item-delete:active { color: var(--bad); }
+
+  .config-add-btn {
+    width: 100%;
+    padding: 13px 0;
+    background: transparent;
+    border: 1px dashed var(--line);
+    border-radius: 14px;
+    color: var(--ink-dim);
+    font-size: 14px;
+    font-family: var(--font-body);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .config-add-btn:active { border-color: var(--ember); color: var(--ember); }
+
+  .config-empty {
+    text-align: center;
+    padding: 20px 10px;
+    color: var(--ink-faint);
+    font-size: 13px;
+  }
+
+  /* ---------- Nueva / editar categoría ---------- */
+  .newcat-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 55;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .newcat-overlay.show { opacity: 1; pointer-events: auto; }
+
+  .newcat-box {
+    background: var(--bg-elev);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px;
+    width: 100%;
+    max-width: 340px;
+    transform: scale(0.94);
+    transition: transform 0.2s ease;
+  }
+
+  .newcat-overlay.show .newcat-box { transform: scale(1); }
+
+  .newcat-title {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+
+  .newcat-row { display: flex; gap: 8px; margin-bottom: 16px; }
+
+  #newcat-emoji {
+    width: 52px;
+    flex-shrink: 0;
+    text-align: center;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink);
+    font-size: 20px;
+    padding: 10px 0;
+    outline: none;
+  }
+
+  #newcat-nombre {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 15px;
+    padding: 10px 14px;
+    outline: none;
+    min-width: 0;
+  }
+
+  #newcat-nombre:focus, #newcat-emoji:focus { border-color: var(--ember); }
+
+  .newcat-actions { display: flex; gap: 10px; }
+
+  .newcat-actions button {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    border: none;
+  }
+
+  .newcat-cancelar {
+    background: transparent;
+    border: 1px solid var(--line) !important;
+    color: var(--ink-dim);
+  }
+
+  .newcat-crear { background: var(--ember); color: #1a1208; }
+
   ::selection { background: var(--ember-dim); }
 </style>
 </head>
@@ -804,7 +890,10 @@
 
   <header>
     <div class="brand">Gasto<span>·</span>diario</div>
-    <div class="today" id="fecha-hoy"></div>
+    <div class="header-right">
+      <span class="today" id="fecha-hoy"></span>
+      <button class="icon-btn" id="btn-config" aria-label="Configuración">⚙</button>
+    </div>
   </header>
 
   <!-- MONTO -->
@@ -851,6 +940,7 @@
 
 <div class="toast" id="toast">Gasto guardado</div>
 
+<!-- RESUMEN -->
 <div class="sheet-overlay" id="sheet-overlay"></div>
 <div class="sheet" id="sheet">
   <div class="sheet-handle"></div>
@@ -869,7 +959,6 @@
   <div id="sheet-body"></div>
 
   <button class="export-btn" id="btn-exportar-csv">⇩ Exportar a CSV</button>
-
   <button class="sheet-close" id="btn-cerrar-sheet">Cerrar</button>
 
   <div class="danger-zone">
@@ -917,282 +1006,168 @@
   </div>
 </div>
 
-<!-- NUEVA CATEGORÍA -->
+<!-- CONFIGURACIÓN -->
+<div class="sheet-overlay" id="config-overlay"></div>
+<div class="sheet" id="config-sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">Configuración</div>
+  <div class="sheet-sub">Administra tus categorías y formas de pago.</div>
+
+  <div class="config-tabs">
+    <button class="config-tab active" id="config-tab-tipo" data-grupo="tipo">Tipo de gasto</button>
+    <button class="config-tab" id="config-tab-pago" data-grupo="pago">Forma de pago</button>
+  </div>
+
+  <div class="config-list" id="config-list"></div>
+  <button class="config-add-btn" id="config-add-btn">+ Agregar nueva</button>
+
+  <button class="sheet-close" id="btn-cerrar-config">Cerrar</button>
+</div>
+
+<!-- NUEVA / EDITAR CATEGORÍA -->
 <div class="newcat-overlay" id="newcat-overlay">
   <div class="newcat-box">
     <div class="newcat-title" id="newcat-title">Nueva categoría</div>
-    <div class="newcat-sub" id="newcat-sub">Elige un emoji y un nombre.</div>
     <div class="newcat-row">
       <input id="newcat-emoji" type="text" maxlength="4" value="✦">
-      <input id="newcat-nombre" type="text" placeholder="Ej. Mascota" maxlength="24" autocomplete="off">
+      <input id="newcat-nombre" type="text" placeholder="Nombre" maxlength="24" autocomplete="off">
     </div>
     <div class="newcat-actions">
       <button class="newcat-cancelar" id="newcat-cancelar">Cancelar</button>
-      <button class="newcat-crear" id="newcat-crear">Crear</button>
+      <button class="newcat-crear" id="newcat-crear">Guardar</button>
     </div>
   </div>
 </div>
 
 <script>
-  const STORAGE_KEY = 'gastoDiario_v1';
-  const CATS_KEY = 'gastoDiario_categorias_v1';
+(function () {
+  'use strict';
 
-  // Categorías por defecto (se usan solo la primera vez, o si el usuario borra los datos)
+  // ============================================================
+  // 1. DATOS POR DEFECTO Y CONSTANTES
+  // ============================================================
+
+  const STORAGE_GASTOS = 'gastos.gastos';
+  const STORAGE_CATS = 'gastos.categorias';
+
   const TIPOS_DEFAULT = [
-    ['Parqueo', '🅿️'], ['Gasolina', '⛽'], ['Comida fuera', '🍽️'], ['Delivery', '🛵'],
-    ['Uber', '🚕'], ['Tienda', '🏪'], ['Supermercado', '🛒'], ['Ropa', '👕'],
-    ['Salud', '💊'], ['Hogar', '🏠'], ['Cine', '🎬'], ['Otro', '✦']
+    { id: 'parqueo', nombre: 'Parqueo', emoji: '🅿️', activo: true },
+    { id: 'gasolina', nombre: 'Gasolina', emoji: '⛽', activo: true },
+    { id: 'comida_fuera', nombre: 'Comida fuera', emoji: '🍽️', activo: true },
+    { id: 'delivery', nombre: 'Delivery', emoji: '🛵', activo: true },
+    { id: 'uber', nombre: 'Uber', emoji: '🚕', activo: true },
+    { id: 'tienda', nombre: 'Tienda', emoji: '🏪', activo: true },
+    { id: 'supermercado', nombre: 'Supermercado', emoji: '🛒', activo: true },
+    { id: 'ropa', nombre: 'Ropa', emoji: '👕', activo: true },
+    { id: 'salud', nombre: 'Salud', emoji: '💊', activo: true },
+    { id: 'hogar', nombre: 'Hogar', emoji: '🏠', activo: true },
+    { id: 'cine', nombre: 'Cine', emoji: '🎬', activo: true },
+    { id: 'otro', nombre: 'Otro', emoji: '✦', activo: true }
   ];
 
   const PAGOS_DEFAULT = [
-    ['Tarjeta GYE', '💳', 'T. GYE'],
-    ['Tarjeta Pichincha', '💳', 'T. Pichincha'],
-    ['Tarjeta KAST', '💳', 'T. KAST'],
-    ['Diners', '💳', 'Diners'],
-    ['Banco de Loja', '🏦', 'B. Loja'],
-    ['Efectivo', '💵', 'Efectivo'],
-    ['Transferencia', '↻', 'Transferencia']
+    { id: 'tarjeta_gye', nombre: 'T. Gye', emoji: '💳', activo: true },
+    { id: 'tarjeta_pichincha', nombre: 'T. Pichincha', emoji: '💳', activo: true },
+    { id: 'tarjeta_kast', nombre: 'T. Kast', emoji: '💳', activo: true },
+    { id: 'diners', nombre: 'Diners', emoji: '💳', activo: true },
+    { id: 'tarjeta_banco_loja', nombre: 'T. Banco Loja', emoji: '💳', activo: true },
+    { id: 'efectivo', nombre: 'Efectivo', emoji: '💵', activo: true },
+    { id: 'transferencia', nombre: 'Transferencia', emoji: '↻', activo: true }
   ];
 
-  let GLYPHS = {};
-  let PAGO_GLYPHS = {};
-  let PAGO_LABELS = {};
-  let ORDEN_PAGOS = [];
+  // ============================================================
+  // 2. ESTADO EN MEMORIA
+  // ============================================================
+
+  const app = {
+    tipos: [],
+    pagos: [],
+    gastos: [],
+    form: { tipoId: null, pagoId: null },
+    editForm: { tipoId: null, pagoId: null },
+    editandoGastoId: null,
+    resumenModo: 'hoy',
+    configGrupo: 'tipo',
+    nuevaCategoria: { grupo: null, editandoId: null }
+  };
+
+  // ============================================================
+  // 3. PERSISTENCIA
+  // ============================================================
+
+  function generarId(prefijo) {
+    return prefijo + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  }
 
   function cargarCategorias() {
     try {
-      const raw = localStorage.getItem(CATS_KEY);
+      const raw = localStorage.getItem(STORAGE_CATS);
       if (raw) {
         const data = JSON.parse(raw);
-        GLYPHS = data.tipos || {};
-        PAGO_GLYPHS = data.pagosGlyph || {};
-        PAGO_LABELS = data.pagosLabel || {};
-        ORDEN_PAGOS = data.ordenPagos || [];
+        app.tipos = data.tipos || [];
+        app.pagos = data.pagos || [];
         return;
       }
-    } catch (e) { /* sigue a default */ }
+    } catch (e) { /* usa default abajo */ }
 
-    // Primera vez: usar listas por defecto
-    GLYPHS = {};
-    TIPOS_DEFAULT.forEach(([nombre, emoji]) => { GLYPHS[nombre] = emoji; });
-
-    PAGO_GLYPHS = {};
-    PAGO_LABELS = {};
-    ORDEN_PAGOS = [];
-    PAGOS_DEFAULT.forEach(([nombre, emoji, label]) => {
-      PAGO_GLYPHS[nombre] = emoji;
-      PAGO_LABELS[nombre] = label;
-      ORDEN_PAGOS.push(nombre);
-    });
-
+    app.tipos = TIPOS_DEFAULT.map(t => ({ ...t }));
+    app.pagos = PAGOS_DEFAULT.map(p => ({ ...p }));
     guardarCategorias();
   }
 
   function guardarCategorias() {
     try {
-      localStorage.setItem(CATS_KEY, JSON.stringify({
-        tipos: GLYPHS,
-        pagosGlyph: PAGO_GLYPHS,
-        pagosLabel: PAGO_LABELS,
-        ordenPagos: ORDEN_PAGOS
-      }));
+      localStorage.setItem(STORAGE_CATS, JSON.stringify({ tipos: app.tipos, pagos: app.pagos }));
     } catch (e) {
-      showToast('No se pudo guardar la categoría');
+      mostrarToast('No se pudo guardar');
     }
   }
 
-  let state = { tipo: null, pago: null };
-  let gastos = [];
-  let modoResumen = 'hoy';
-  let editandoId = null;
-
-  // ---------- Construir chips de tipo y pago (formulario principal + edición) ----------
-  function construirChipsPrincipales() {
-    const tipoRow = document.getElementById('tipo-row');
-    tipoRow.innerHTML = '';
-    Object.keys(GLYPHS).forEach(tipo => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.dataset.value = tipo;
-      chip.innerHTML = `<span class="glyph">${GLYPHS[tipo]}</span>${tipo}`;
-      tipoRow.appendChild(chip);
-    });
-    const addTipo = document.createElement('div');
-    addTipo.className = 'chip-add';
-    addTipo.textContent = '+';
-    addTipo.addEventListener('click', () => abrirNuevaCategoria('tipo'));
-    tipoRow.appendChild(addTipo);
-
-    const pagoRow = document.getElementById('pago-row');
-    pagoRow.innerHTML = '';
-    ORDEN_PAGOS.forEach(pago => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.dataset.value = pago;
-      chip.innerHTML = `<span class="glyph">${PAGO_GLYPHS[pago]}</span>${PAGO_LABELS[pago] || pago}`;
-      pagoRow.appendChild(chip);
-    });
-    const addPago = document.createElement('div');
-    addPago.className = 'chip-add';
-    addPago.textContent = '+';
-    addPago.addEventListener('click', () => abrirNuevaCategoria('pago'));
-    pagoRow.appendChild(addPago);
-
-    wireChips('tipo-row', 'tipo');
-    wireChips('pago-row', 'pago');
-  }
-
-  // ---------- Generar chips del modal de edición a partir de GLYPHS/PAGO_GLYPHS ----------
-  function construirChipsEdicion() {
-    const tipoRow = document.getElementById('edit-tipo-row');
-    tipoRow.innerHTML = '';
-    Object.keys(GLYPHS).forEach(tipo => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.dataset.value = tipo;
-      chip.innerHTML = `<span class="glyph">${GLYPHS[tipo]}</span>${tipo}`;
-      tipoRow.appendChild(chip);
-    });
-
-    const pagoRow = document.getElementById('edit-pago-row');
-    pagoRow.innerHTML = '';
-    ORDEN_PAGOS.forEach(pago => {
-      const chip = document.createElement('div');
-      chip.className = 'chip';
-      chip.dataset.value = pago;
-      chip.innerHTML = `<span class="glyph">${PAGO_GLYPHS[pago]}</span>${PAGO_LABELS[pago] || pago}`;
-      pagoRow.appendChild(chip);
-    });
-
-    wireChips('edit-tipo-row', 'editTipo');
-    wireChips('edit-pago-row', 'editPago');
-  }
-
-  // ---------- Crear categoría nueva (tipo de gasto o forma de pago) ----------
-  let nuevaCategoriaDestino = null; // 'tipo' o 'pago'
-
-  const newcatOverlay = document.getElementById('newcat-overlay');
-  const newcatEmoji = document.getElementById('newcat-emoji');
-  const newcatNombre = document.getElementById('newcat-nombre');
-
-  function abrirNuevaCategoria(destino) {
-    nuevaCategoriaDestino = destino;
-    document.getElementById('newcat-title').textContent = destino === 'tipo' ? 'Nuevo tipo de gasto' : 'Nueva forma de pago';
-    document.getElementById('newcat-sub').textContent = destino === 'tipo'
-      ? 'Ej. 🐶 Mascota, 🎁 Regalos, 📚 Estudios'
-      : 'Ej. 💳 Tarjeta Produbanco, 💰 Ahorros';
-    newcatEmoji.value = '✦';
-    newcatNombre.value = '';
-    newcatOverlay.classList.add('show');
-    setTimeout(() => newcatNombre.focus(), 250);
-  }
-
-  function cerrarNuevaCategoria() {
-    newcatOverlay.classList.remove('show');
-    nuevaCategoriaDestino = null;
-  }
-
-  document.getElementById('newcat-cancelar').addEventListener('click', cerrarNuevaCategoria);
-  newcatOverlay.addEventListener('click', (e) => {
-    if (e.target === newcatOverlay) cerrarNuevaCategoria();
-  });
-
-  document.getElementById('newcat-crear').addEventListener('click', () => {
-    const nombre = newcatNombre.value.trim();
-    const emoji = newcatEmoji.value.trim() || '✦';
-
-    if (!nombre) {
-      showToast('Escribe un nombre');
-      return;
-    }
-
-    if (nuevaCategoriaDestino === 'tipo') {
-      if (GLYPHS[nombre]) {
-        showToast('Ese tipo de gasto ya existe');
-        return;
-      }
-      GLYPHS[nombre] = emoji;
-    } else if (nuevaCategoriaDestino === 'pago') {
-      if (ORDEN_PAGOS.includes(nombre)) {
-        showToast('Esa forma de pago ya existe');
-        return;
-      }
-      ORDEN_PAGOS.push(nombre);
-      PAGO_GLYPHS[nombre] = emoji;
-      PAGO_LABELS[nombre] = nombre;
-    }
-
-    guardarCategorias();
-    construirChipsPrincipales();
-    construirChipsEdicion();
-
-    // Seleccionar automáticamente la categoría recién creada en el formulario principal
-    const rowId = nuevaCategoriaDestino === 'tipo' ? 'tipo-row' : 'pago-row';
-    const stateKey = nuevaCategoriaDestino;
-    document.querySelectorAll(`#${rowId} .chip`).forEach(c => {
-      c.classList.toggle('selected', c.dataset.value === nombre);
-    });
-    state[stateKey] = nombre;
-
-    cerrarNuevaCategoria();
-    showToast('Categoría creada ✓');
-  });
-
-  function generarId() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  }
-
-  // ---------- Manejo robusto de monto (acepta coma o punto, funciona igual en iOS) ----------
-  function parseMonto(valorCrudo) {
-    if (!valorCrudo) return NaN;
-    // Quita todo lo que no sea dígito, coma o punto
-    let limpio = String(valorCrudo).trim().replace(/[^0-9.,]/g, '');
-    // Si tiene coma y no punto, la coma es el separador decimal -> convertir a punto
-    if (limpio.includes(',') && !limpio.includes('.')) {
-      limpio = limpio.replace(',', '.');
-    } else {
-      // Si tiene ambos o varias comas, las comas son separador de miles -> quitarlas
-      limpio = limpio.replace(/,/g, '');
-    }
-    return parseFloat(limpio);
-  }
-
-  function filtrarInputDecimal(input) {
-    input.addEventListener('input', () => {
-      let v = input.value;
-      // Permitir solo dígitos, un punto o una coma
-      v = v.replace(/[^0-9.,]/g, '');
-      // Si ya hay un separador decimal, no permitir otro
-      const primerSep = v.search(/[.,]/);
-      if (primerSep !== -1) {
-        const antes = v.slice(0, primerSep + 1);
-        const despues = v.slice(primerSep + 1).replace(/[.,]/g, '');
-        v = antes + despues;
-      }
-      input.value = v;
-    });
-  }
-  filtrarInputDecimal(document.getElementById('monto'));
-  filtrarInputDecimal(document.getElementById('edit-monto'));
-
-  // ---------- Persistencia (localStorage = memoria del propio iPhone) ----------
   function cargarGastos() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      gastos = raw ? JSON.parse(raw) : [];
-      // Migración suave: si algún gasto antiguo no tiene id, se le asigna uno
-      gastos.forEach(g => { if (!g.id) g.id = generarId(); });
+      const raw = localStorage.getItem(STORAGE_GASTOS);
+      app.gastos = raw ? JSON.parse(raw) : [];
     } catch (e) {
-      gastos = [];
+      app.gastos = [];
     }
   }
 
   function guardarGastos() {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(gastos));
+      localStorage.setItem(STORAGE_GASTOS, JSON.stringify(app.gastos));
     } catch (e) {
-      showToast('No se pudo guardar en el teléfono');
+      mostrarToast('No se pudo guardar el gasto');
     }
+  }
+
+  // ============================================================
+  // 4. HELPERS DE CATEGORÍAS
+  // ============================================================
+
+  function listaActiva(grupo) {
+    return app[grupo].filter(c => c.activo);
+  }
+
+  function buscarCategoria(grupo, id) {
+    return app[grupo].find(c => c.id === id) || null;
+  }
+
+  function nombrePorId(grupo, id) {
+    const c = buscarCategoria(grupo, id);
+    return c ? c.nombre : '—';
+  }
+
+  function emojiPorId(grupo, id) {
+    const c = buscarCategoria(grupo, id);
+    return c ? c.emoji : '✦';
+  }
+
+  // ============================================================
+  // 5. UTILIDADES DE FORMATO
+  // ============================================================
+
+  function formatMoney(n) {
+    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function esMismoDia(isoA, isoB) {
@@ -1200,63 +1175,219 @@
     return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
   }
 
-  // Fecha de hoy en cabecera
-  const fechaHoy = new Date();
-  document.getElementById('fecha-hoy').textContent = fechaHoy.toLocaleDateString('es-ES', {
-    day: 'numeric', month: 'short'
-  }).replace('.', '');
+  function formatFechaCorta(iso) {
+    const d = new Date(iso);
+    if (esMismoDia(iso, new Date().toISOString())) {
+      return d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+    }
+    return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }).replace('.', '') +
+      ' · ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
+  }
 
-  let editState = { tipo: null, pago: null };
+  function parseMonto(valorCrudo) {
+    if (!valorCrudo) return NaN;
+    let limpio = String(valorCrudo).trim().replace(/[^0-9.,]/g, '');
+    if (limpio.includes(',') && !limpio.includes('.')) {
+      limpio = limpio.replace(',', '.');
+    } else {
+      limpio = limpio.replace(/,/g, '');
+    }
+    return parseFloat(limpio);
+  }
 
-  function wireChips(rowId, key) {
-    const row = document.getElementById(rowId);
-    const targetState = key.startsWith('edit') ? editState : state;
-    const stateKey = key === 'editTipo' ? 'tipo' : key === 'editPago' ? 'pago' : key;
-    row.querySelectorAll('.chip').forEach(chip => {
-      chip.addEventListener('click', () => {
-        row.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
-        chip.classList.add('selected');
-        targetState[stateKey] = chip.dataset.value;
-      });
+  function filtrarInputDecimal(input) {
+    input.addEventListener('input', () => {
+      let v = input.value.replace(/[^0-9.,]/g, '');
+      const primerSep = v.search(/[.,]/);
+      if (primerSep !== -1) {
+        v = v.slice(0, primerSep + 1) + v.slice(primerSep + 1).replace(/[.,]/g, '');
+      }
+      input.value = v;
     });
   }
 
-  const sheet = document.getElementById('sheet');
-  const sheetOverlay = document.getElementById('sheet-overlay');
-
-  function abrirSheet() {
-    document.getElementById('confirm-box').classList.remove('show');
-    renderResumen();
-    sheetOverlay.classList.add('show');
-    sheet.classList.add('show');
+  function mostrarToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1600);
   }
 
-  function cerrarSheet() {
-    sheetOverlay.classList.remove('show');
-    sheet.classList.remove('show');
+  // ============================================================
+  // 6. RENDER: CHIPS DE SELECCIÓN (form principal + edición)
+  // ============================================================
+
+  function crearChip(categoria) {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+    chip.dataset.id = categoria.id;
+    chip.innerHTML = `<span class="glyph">${categoria.emoji}</span>${categoria.nombre}`;
+    return chip;
   }
 
-  document.getElementById('btn-resumen').addEventListener('click', abrirSheet);
-  document.getElementById('btn-cerrar-sheet').addEventListener('click', cerrarSheet);
-  sheetOverlay.addEventListener('click', cerrarSheet);
+  function renderChipRow(rowEl, grupo, idSeleccionado, onSelect) {
+    rowEl.innerHTML = '';
+    const activos = listaActiva(grupo);
 
-  document.getElementById('tab-hoy').addEventListener('click', () => setModoResumen('hoy'));
-  document.getElementById('tab-todo').addEventListener('click', () => setModoResumen('todo'));
+    if (activos.length === 0) {
+      rowEl.innerHTML = `<div class="chip-empty">No tienes categorías activas. Actívalas en <a href="#" data-abrir-config="${grupo}">Configuración</a>.</div>`;
+      rowEl.querySelector('[data-abrir-config]').addEventListener('click', (e) => {
+        e.preventDefault();
+        abrirConfig(grupo);
+      });
+      return;
+    }
 
-  function setModoResumen(modo) {
-    modoResumen = modo;
-    document.getElementById('tab-hoy').classList.toggle('active', modo === 'hoy');
-    document.getElementById('tab-todo').classList.toggle('active', modo === 'todo');
-    renderResumen();
+    activos.forEach(cat => {
+      const chip = crearChip(cat);
+      if (cat.id === idSeleccionado) chip.classList.add('selected');
+      chip.addEventListener('click', () => {
+        rowEl.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+        chip.classList.add('selected');
+        onSelect(cat.id);
+      });
+      rowEl.appendChild(chip);
+    });
   }
+
+  function renderFormPrincipal() {
+    renderChipRow(document.getElementById('tipo-row'), 'tipos', app.form.tipoId, (id) => { app.form.tipoId = id; });
+    renderChipRow(document.getElementById('pago-row'), 'pagos', app.form.pagoId, (id) => { app.form.pagoId = id; });
+  }
+
+  function renderFormEdicion() {
+    renderChipRow(document.getElementById('edit-tipo-row'), 'tipos', app.editForm.tipoId, (id) => { app.editForm.tipoId = id; });
+    renderChipRow(document.getElementById('edit-pago-row'), 'pagos', app.editForm.pagoId, (id) => { app.editForm.pagoId = id; });
+  }
+
+  // ============================================================
+  // 7. HISTORIAL DE GASTOS
+  // ============================================================
+
+  function renderHistorial() {
+    const cont = document.getElementById('lista-gastos');
+    cont.innerHTML = '';
+
+    if (app.gastos.length === 0) {
+      cont.innerHTML = '<div class="empty-state">Aún no registras gastos.<br>El primero queda justo aquí arriba.</div>';
+    } else {
+      app.gastos.slice(0, 12).forEach(g => {
+        const row = document.createElement('div');
+        row.className = 'entry';
+        row.innerHTML = `
+          <div class="entry-glyph">${emojiPorId('tipos', g.tipoId)}</div>
+          <div class="entry-mid">
+            <div class="entry-cat">${nombrePorId('tipos', g.tipoId)}</div>
+            <div class="entry-meta">${nombrePorId('pagos', g.pagoId)}${g.notas ? ' · ' + g.notas : ''} · ${formatFechaCorta(g.fechaISO)}</div>
+          </div>
+          <div class="entry-amt">${formatMoney(g.monto)}</div>
+          <span class="entry-chevron">›</span>
+        `;
+        row.addEventListener('click', () => abrirEdicionGasto(g.id));
+        cont.appendChild(row);
+      });
+    }
+
+    const hoyISO = new Date().toISOString();
+    const totalHoy = app.gastos
+      .filter(g => esMismoDia(g.fechaISO, hoyISO))
+      .reduce((sum, g) => sum + g.monto, 0);
+    document.getElementById('total-hoy').textContent = formatMoney(totalHoy);
+  }
+
+  // ============================================================
+  // 8. GUARDAR / EDITAR / ELIMINAR UN GASTO
+  // ============================================================
+
+  function resetFormPrincipal() {
+    document.getElementById('monto').value = '';
+    document.getElementById('notas').value = '';
+    app.form = { tipoId: null, pagoId: null };
+    renderFormPrincipal();
+  }
+
+  function guardarNuevoGasto() {
+    const montoVal = parseMonto(document.getElementById('monto').value);
+    const notasVal = document.getElementById('notas').value.trim();
+
+    if (!montoVal || montoVal <= 0) {
+      mostrarToast('Falta el monto');
+      document.getElementById('monto').focus();
+      return;
+    }
+    if (!app.form.tipoId) { mostrarToast('Elige un tipo de gasto'); return; }
+    if (!app.form.pagoId) { mostrarToast('Elige una forma de pago'); return; }
+
+    app.gastos.unshift({
+      id: generarId('g'),
+      tipoId: app.form.tipoId,
+      pagoId: app.form.pagoId,
+      monto: montoVal,
+      notas: notasVal,
+      fechaISO: new Date().toISOString()
+    });
+
+    guardarGastos();
+    renderHistorial();
+    resetFormPrincipal();
+    mostrarToast('Gasto guardado ✓');
+  }
+
+  function abrirEdicionGasto(id) {
+    const gasto = app.gastos.find(g => g.id === id);
+    if (!gasto) return;
+
+    app.editandoGastoId = id;
+    app.editForm = { tipoId: gasto.tipoId, pagoId: gasto.pagoId };
+
+    document.getElementById('edit-monto').value = gasto.monto;
+    document.getElementById('edit-notas').value = gasto.notas || '';
+    document.getElementById('edit-meta-fecha').textContent = formatFechaCorta(gasto.fechaISO);
+
+    renderFormEdicion();
+    abrirSheet('edit-overlay', 'edit-sheet');
+  }
+
+  function guardarCambiosGasto() {
+    const montoVal = parseMonto(document.getElementById('edit-monto').value);
+    const notasVal = document.getElementById('edit-notas').value.trim();
+
+    if (!montoVal || montoVal <= 0) { mostrarToast('Falta el monto'); return; }
+    if (!app.editForm.tipoId) { mostrarToast('Elige un tipo de gasto'); return; }
+    if (!app.editForm.pagoId) { mostrarToast('Elige una forma de pago'); return; }
+
+    const gasto = app.gastos.find(g => g.id === app.editandoGastoId);
+    if (gasto) {
+      gasto.monto = montoVal;
+      gasto.tipoId = app.editForm.tipoId;
+      gasto.pagoId = app.editForm.pagoId;
+      gasto.notas = notasVal;
+      guardarGastos();
+      renderHistorial();
+      mostrarToast('Cambios guardados ✓');
+    }
+    cerrarSheet('edit-overlay', 'edit-sheet');
+  }
+
+  function eliminarGasto() {
+    app.gastos = app.gastos.filter(g => g.id !== app.editandoGastoId);
+    guardarGastos();
+    renderHistorial();
+    cerrarSheet('edit-overlay', 'edit-sheet');
+    mostrarToast('Gasto eliminado');
+  }
+
+  // ============================================================
+  // 9. RESUMEN POR MÉTODO DE PAGO
+  // ============================================================
 
   function renderResumen() {
     const ahoraISO = new Date().toISOString();
-    const fuente = modoResumen === 'hoy'
-      ? gastos.filter(g => esMismoDia(g.fechaISO, ahoraISO))
-      : gastos;
+    const fuente = app.resumenModo === 'hoy'
+      ? app.gastos.filter(g => esMismoDia(g.fechaISO, ahoraISO))
+      : app.gastos;
 
-    document.getElementById('sheet-fecha').textContent = modoResumen === 'hoy'
+    document.getElementById('sheet-fecha').textContent = app.resumenModo === 'hoy'
       ? new Date().toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' })
       : `Todos los gastos guardados en este iPhone (${fuente.length})`;
 
@@ -1266,59 +1397,69 @@
     const body = document.getElementById('sheet-body');
 
     if (fuente.length === 0) {
-      body.innerHTML = `<div class="sheet-empty">No hay gastos ${modoResumen === 'hoy' ? 'registrados hoy' : 'guardados'} todavía.</div>`;
+      body.innerHTML = `<div class="sheet-empty">No hay gastos ${app.resumenModo === 'hoy' ? 'registrados hoy' : 'guardados'} todavía.</div>`;
       return;
     }
 
     const porPago = {};
-    fuente.forEach(g => { porPago[g.pago] = (porPago[g.pago] || 0) + g.monto; });
+    fuente.forEach(g => { porPago[g.pagoId] = (porPago[g.pagoId] || 0) + g.monto; });
 
     body.innerHTML = '';
-    ORDEN_PAGOS.filter(p => porPago[p] > 0).forEach(pago => {
-      const monto = porPago[pago];
-      const pct = total > 0 ? Math.round((monto / total) * 100) : 0;
-      const row = document.createElement('div');
-      row.className = 'pago-row-summary';
-      row.innerHTML = `
-        <div class="pago-icon">${PAGO_GLYPHS[pago] || '•'}</div>
-        <div class="pago-info">
-          <div class="pago-nombre">${pago}</div>
-          <div class="pago-bar-track"><div class="pago-bar-fill" style="width:${pct}%"></div></div>
-        </div>
-        <div>
-          <div class="pago-amt">${formatMoney(monto)}</div>
-          <span class="pago-pct">${pct}%</span>
-        </div>
-      `;
-      body.appendChild(row);
-    });
+    app.pagos
+      .filter(p => porPago[p.id] > 0)
+      .forEach(pago => {
+        const monto = porPago[pago.id];
+        const pct = total > 0 ? Math.round((monto / total) * 100) : 0;
+        const row = document.createElement('div');
+        row.className = 'pago-row-summary';
+        row.innerHTML = `
+          <div class="pago-icon">${pago.emoji}</div>
+          <div class="pago-info">
+            <div class="pago-nombre">${pago.nombre}</div>
+            <div class="pago-bar-track"><div class="pago-bar-fill" style="width:${pct}%"></div></div>
+          </div>
+          <div>
+            <div class="pago-amt">${formatMoney(monto)}</div>
+            <span class="pago-pct">${pct}%</span>
+          </div>
+        `;
+        body.appendChild(row);
+      });
   }
 
-  // ---------- Exportar a CSV ----------
+  function setResumenModo(modo) {
+    app.resumenModo = modo;
+    document.getElementById('tab-hoy').classList.toggle('active', modo === 'hoy');
+    document.getElementById('tab-todo').classList.toggle('active', modo === 'todo');
+    renderResumen();
+  }
+
+  // ============================================================
+  // 10. EXPORTAR A CSV
+  // ============================================================
+
+  function escaparCSV(valor) {
+    const txt = String(valor ?? '');
+    if (txt.includes(',') || txt.includes('"') || txt.includes('\n')) {
+      return '"' + txt.replace(/"/g, '""') + '"';
+    }
+    return txt;
+  }
+
   function exportarCSV() {
-    if (gastos.length === 0) {
-      showToast('No hay gastos para exportar');
+    if (app.gastos.length === 0) {
+      mostrarToast('No hay gastos para exportar');
       return;
     }
 
     const encabezado = ['Fecha', 'Hora', 'Tipo de gasto', 'Forma de pago', 'Monto', 'Notas'];
-
-    function escaparCSV(valor) {
-      const txt = String(valor ?? '');
-      if (txt.includes(',') || txt.includes('"') || txt.includes('\n')) {
-        return '"' + txt.replace(/"/g, '""') + '"';
-      }
-      return txt;
-    }
-
-    // Orden cronológico ascendente para que el CSV se lea de más antiguo a más reciente
-    const ordenados = [...gastos].sort((a, b) => new Date(a.fechaISO) - new Date(b.fechaISO));
+    const ordenados = [...app.gastos].sort((a, b) => new Date(a.fechaISO) - new Date(b.fechaISO));
 
     const filas = ordenados.map(g => {
       const d = new Date(g.fechaISO);
       const fecha = d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
       const hora = d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-      return [fecha, hora, g.tipo, g.pago, g.monto.toFixed(2), g.notas || '']
+      return [fecha, hora, nombrePorId('tipos', g.tipoId), nombrePorId('pagos', g.pagoId), g.monto.toFixed(2), g.notas || '']
         .map(escaparCSV).join(',');
     });
 
@@ -1337,195 +1478,213 @@
     document.body.removeChild(link);
 
     setTimeout(() => URL.revokeObjectURL(url), 2000);
-    showToast('CSV generado ✓');
+    mostrarToast('CSV generado ✓');
   }
 
-  document.getElementById('btn-exportar-csv').addEventListener('click', exportarCSV);
+  // ============================================================
+  // 11. CONFIGURACIÓN: activar/desactivar/eliminar/crear categorías
+  // ============================================================
 
-  // ---------- Borrado con confirmación ----------
-  document.getElementById('btn-borrar-todo').addEventListener('click', () => {
-    document.getElementById('confirm-box').classList.add('show');
-  });
-  document.getElementById('btn-cancelar-borrado').addEventListener('click', () => {
-    document.getElementById('confirm-box').classList.remove('show');
-  });
-  document.getElementById('btn-confirmar-borrado').addEventListener('click', () => {
-    gastos = [];
+  function abrirConfig(grupoInicial) {
+    app.configGrupo = grupoInicial === 'pagos' ? 'pago' : (grupoInicial === 'tipos' ? 'tipo' : grupoInicial) || 'tipo';
+    document.getElementById('config-tab-tipo').classList.toggle('active', app.configGrupo === 'tipo');
+    document.getElementById('config-tab-pago').classList.toggle('active', app.configGrupo === 'pago');
+    renderConfigList();
+    abrirSheet('config-overlay', 'config-sheet');
+  }
+
+  function grupoKey() {
+    return app.configGrupo === 'tipo' ? 'tipos' : 'pagos';
+  }
+
+  function renderConfigList() {
+    const grupo = grupoKey();
+    const lista = document.getElementById('config-list');
+    lista.innerHTML = '';
+
+    if (app[grupo].length === 0) {
+      lista.innerHTML = '<div class="config-empty">No hay categorías todavía.</div>';
+      return;
+    }
+
+    app[grupo].forEach(cat => {
+      const item = document.createElement('div');
+      item.className = 'config-item' + (cat.activo ? '' : ' inactive');
+      item.innerHTML = `
+        <div class="config-item-glyph">${cat.emoji}</div>
+        <div class="config-item-name">${cat.nombre}</div>
+        <div class="config-item-actions">
+          <button class="toggle ${cat.activo ? 'on' : ''}" data-toggle-id="${cat.id}" aria-label="Activar o desactivar"></button>
+          <button class="config-item-delete" data-delete-id="${cat.id}" aria-label="Eliminar">🗑</button>
+        </div>
+      `;
+      lista.appendChild(item);
+    });
+
+    lista.querySelectorAll('[data-toggle-id]').forEach(btn => {
+      btn.addEventListener('click', () => toggleCategoria(btn.dataset.toggleId));
+    });
+    lista.querySelectorAll('[data-delete-id]').forEach(btn => {
+      btn.addEventListener('click', () => eliminarCategoria(btn.dataset.deleteId));
+    });
+  }
+
+  function toggleCategoria(id) {
+    const grupo = grupoKey();
+    const cat = buscarCategoria(grupo, id);
+    if (!cat) return;
+    cat.activo = !cat.activo;
+    guardarCategorias();
+    renderConfigList();
+    renderFormPrincipal();
+  }
+
+  function eliminarCategoria(id) {
+    const grupo = grupoKey();
+    app[grupo] = app[grupo].filter(c => c.id !== id);
+    guardarCategorias();
+    renderConfigList();
+    renderFormPrincipal();
+    mostrarToast('Categoría eliminada');
+  }
+
+  // ---------- Modal de nueva categoría ----------
+
+  function abrirNuevaCategoria() {
+    app.nuevaCategoria = { grupo: grupoKey(), editandoId: null };
+    document.getElementById('newcat-title').textContent =
+      app.configGrupo === 'tipo' ? 'Nuevo tipo de gasto' : 'Nueva forma de pago';
+    document.getElementById('newcat-emoji').value = '✦';
+    document.getElementById('newcat-nombre').value = '';
+    document.getElementById('newcat-overlay').classList.add('show');
+    setTimeout(() => document.getElementById('newcat-nombre').focus(), 250);
+  }
+
+  function cerrarNuevaCategoria() {
+    document.getElementById('newcat-overlay').classList.remove('show');
+  }
+
+  function confirmarNuevaCategoria() {
+    const nombre = document.getElementById('newcat-nombre').value.trim();
+    const emoji = document.getElementById('newcat-emoji').value.trim() || '✦';
+    const grupo = app.nuevaCategoria.grupo;
+
+    if (!nombre) { mostrarToast('Escribe un nombre'); return; }
+
+    const yaExiste = app[grupo].some(c => c.nombre.toLowerCase() === nombre.toLowerCase());
+    if (yaExiste) { mostrarToast('Esa categoría ya existe'); return; }
+
+    app[grupo].push({
+      id: generarId(grupo === 'tipos' ? 't' : 'p'),
+      nombre,
+      emoji,
+      activo: true
+    });
+
+    guardarCategorias();
+    renderConfigList();
+    renderFormPrincipal();
+    cerrarNuevaCategoria();
+    mostrarToast('Categoría creada ✓');
+  }
+
+  // ============================================================
+  // 12. SHEETS GENÉRICAS (abrir / cerrar)
+  // ============================================================
+
+  function abrirSheet(overlayId, sheetId) {
+    document.getElementById(overlayId).classList.add('show');
+    document.getElementById(sheetId).classList.add('show');
+  }
+
+  function cerrarSheet(overlayId, sheetId) {
+    document.getElementById(overlayId).classList.remove('show');
+    document.getElementById(sheetId).classList.remove('show');
+  }
+
+  // ============================================================
+  // 13. BORRADO TOTAL DEL HISTORIAL
+  // ============================================================
+
+  function borrarHistorialCompleto() {
+    app.gastos = [];
     guardarGastos();
-    renderLista();
+    renderHistorial();
     renderResumen();
     document.getElementById('confirm-box').classList.remove('show');
-    showToast('Historial borrado');
-  });
-
-  function showToast(msg) {
-    const t = document.getElementById('toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 1600);
+    mostrarToast('Historial borrado');
   }
 
-  function formatMoney(n) {
-    return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
+  // ============================================================
+  // 14. CONEXIÓN DE EVENTOS (se ejecuta una sola vez al iniciar)
+  // ============================================================
 
-  function formatFechaCorta(iso) {
-    const d = new Date(iso);
-    const hoyMismo = esMismoDia(iso, new Date().toISOString());
-    if (hoyMismo) {
-      return d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-    }
-    return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }).replace('.', '') +
-      ' · ' + d.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit' });
-  }
+  function conectarEventos() {
+    filtrarInputDecimal(document.getElementById('monto'));
+    filtrarInputDecimal(document.getElementById('edit-monto'));
 
-  function renderLista() {
-    const cont = document.getElementById('lista-gastos');
-    cont.innerHTML = '';
+    document.getElementById('btn-guardar').addEventListener('click', guardarNuevoGasto);
 
-    if (gastos.length === 0) {
-      cont.innerHTML = '<div class="empty-state">Aún no registras gastos.<br>El primero queda justo aquí arriba.</div>';
-    } else {
-      gastos.slice(0, 12).forEach(g => {
-        const row = document.createElement('div');
-        row.className = 'entry';
-        row.dataset.id = g.id;
-        row.innerHTML = `
-          <div class="entry-glyph">${GLYPHS[g.tipo] || '✦'}</div>
-          <div class="entry-mid">
-            <div class="entry-cat">${g.tipo}</div>
-            <div class="entry-meta">${g.pago}${g.notas ? ' · ' + g.notas : ''} · ${formatFechaCorta(g.fechaISO)}</div>
-          </div>
-          <div class="entry-amt">${formatMoney(g.monto)}</div>
-          <span class="entry-chevron">›</span>
-        `;
-        row.addEventListener('click', () => abrirEdicion(g.id));
-        cont.appendChild(row);
-      });
-    }
-
-    const hoyISO = new Date().toISOString();
-    const totalHoy = gastos.filter(g => esMismoDia(g.fechaISO, hoyISO)).reduce((sum, g) => sum + g.monto, 0);
-    document.getElementById('total-hoy').textContent = formatMoney(totalHoy);
-  }
-
-  // ---------- Editar / borrar un gasto individual ----------
-  const editOverlay = document.getElementById('edit-overlay');
-  const editSheet = document.getElementById('edit-sheet');
-
-  function abrirEdicion(id) {
-    const gasto = gastos.find(g => g.id === id);
-    if (!gasto) return;
-
-    editandoId = id;
-    editState = { tipo: gasto.tipo, pago: gasto.pago };
-
-    document.getElementById('edit-monto').value = gasto.monto;
-    document.getElementById('edit-notas').value = gasto.notas || '';
-    document.getElementById('edit-meta-fecha').textContent = formatFechaCorta(gasto.fechaISO);
-
-    document.querySelectorAll('#edit-tipo-row .chip').forEach(c => {
-      c.classList.toggle('selected', c.dataset.value === gasto.tipo);
+    // Resumen
+    document.getElementById('btn-resumen').addEventListener('click', () => {
+      document.getElementById('confirm-box').classList.remove('show');
+      renderResumen();
+      abrirSheet('sheet-overlay', 'sheet');
     });
-    document.querySelectorAll('#edit-pago-row .chip').forEach(c => {
-      c.classList.toggle('selected', c.dataset.value === gasto.pago);
+    document.getElementById('btn-cerrar-sheet').addEventListener('click', () => cerrarSheet('sheet-overlay', 'sheet'));
+    document.getElementById('sheet-overlay').addEventListener('click', () => cerrarSheet('sheet-overlay', 'sheet'));
+    document.getElementById('tab-hoy').addEventListener('click', () => setResumenModo('hoy'));
+    document.getElementById('tab-todo').addEventListener('click', () => setResumenModo('todo'));
+    document.getElementById('btn-exportar-csv').addEventListener('click', exportarCSV);
+
+    document.getElementById('btn-borrar-todo').addEventListener('click', () => {
+      document.getElementById('confirm-box').classList.add('show');
     });
-
-    editOverlay.classList.add('show');
-    editSheet.classList.add('show');
-  }
-
-  function cerrarEdicion() {
-    editOverlay.classList.remove('show');
-    editSheet.classList.remove('show');
-    editandoId = null;
-  }
-
-  editOverlay.addEventListener('click', cerrarEdicion);
-
-  document.getElementById('btn-guardar-cambios').addEventListener('click', () => {
-    const montoVal = parseMonto(document.getElementById('edit-monto').value);
-    const notasVal = document.getElementById('edit-notas').value.trim();
-
-    if (!montoVal || montoVal <= 0) {
-      showToast('Falta el monto');
-      return;
-    }
-    if (!editState.tipo) {
-      showToast('Elige un tipo de gasto');
-      return;
-    }
-    if (!editState.pago) {
-      showToast('Elige una forma de pago');
-      return;
-    }
-
-    const gasto = gastos.find(g => g.id === editandoId);
-    if (gasto) {
-      gasto.monto = montoVal;
-      gasto.tipo = editState.tipo;
-      gasto.pago = editState.pago;
-      gasto.notas = notasVal;
-      guardarGastos();
-      renderLista();
-      showToast('Cambios guardados ✓');
-    }
-    cerrarEdicion();
-  });
-
-  document.getElementById('btn-eliminar-gasto').addEventListener('click', () => {
-    gastos = gastos.filter(g => g.id !== editandoId);
-    guardarGastos();
-    renderLista();
-    cerrarEdicion();
-    showToast('Gasto eliminado');
-  });
-
-  function resetForm() {
-    document.getElementById('monto').value = '';
-    document.getElementById('notas').value = '';
-    document.querySelectorAll('.chip.selected').forEach(c => c.classList.remove('selected'));
-    state = { tipo: null, pago: null };
-  }
-
-  document.getElementById('btn-guardar').addEventListener('click', () => {
-    const montoVal = parseMonto(document.getElementById('monto').value);
-    const notasVal = document.getElementById('notas').value.trim();
-
-    if (!montoVal || montoVal <= 0) {
-      showToast('Falta el monto');
-      document.getElementById('monto').focus();
-      return;
-    }
-    if (!state.tipo) {
-      showToast('Elige un tipo de gasto');
-      return;
-    }
-    if (!state.pago) {
-      showToast('Elige una forma de pago');
-      return;
-    }
-
-    gastos.unshift({
-      id: generarId(),
-      tipo: state.tipo,
-      pago: state.pago,
-      monto: montoVal,
-      notas: notasVal,
-      fechaISO: new Date().toISOString()
+    document.getElementById('btn-cancelar-borrado').addEventListener('click', () => {
+      document.getElementById('confirm-box').classList.remove('show');
     });
+    document.getElementById('btn-confirmar-borrado').addEventListener('click', borrarHistorialCompleto);
 
-    guardarGastos();
-    renderLista();
-    resetForm();
-    showToast('Gasto guardado ✓');
-  });
+    // Edición de gasto individual
+    document.getElementById('edit-overlay').addEventListener('click', () => cerrarSheet('edit-overlay', 'edit-sheet'));
+    document.getElementById('btn-guardar-cambios').addEventListener('click', guardarCambiosGasto);
+    document.getElementById('btn-eliminar-gasto').addEventListener('click', eliminarGasto);
 
-  cargarCategorias();
-  cargarGastos();
-  construirChipsPrincipales();
-  construirChipsEdicion();
-  renderLista();
+    // Configuración
+    document.getElementById('btn-config').addEventListener('click', () => abrirConfig('tipo'));
+    document.getElementById('btn-cerrar-config').addEventListener('click', () => cerrarSheet('config-overlay', 'config-sheet'));
+    document.getElementById('config-overlay').addEventListener('click', () => cerrarSheet('config-overlay', 'config-sheet'));
+    document.getElementById('config-tab-tipo').addEventListener('click', () => abrirConfig('tipo'));
+    document.getElementById('config-tab-pago').addEventListener('click', () => abrirConfig('pago'));
+    document.getElementById('config-add-btn').addEventListener('click', abrirNuevaCategoria);
+
+    // Nueva categoría
+    document.getElementById('newcat-cancelar').addEventListener('click', cerrarNuevaCategoria);
+    document.getElementById('newcat-crear').addEventListener('click', confirmarNuevaCategoria);
+    document.getElementById('newcat-overlay').addEventListener('click', (e) => {
+      if (e.target.id === 'newcat-overlay') cerrarNuevaCategoria();
+    });
+  }
+
+  // ============================================================
+  // 15. INICIO
+  // ============================================================
+
+  function init() {
+    const hoy = new Date();
+    document.getElementById('fecha-hoy').textContent =
+      hoy.toLocaleDateString('es-ES', { day: 'numeric', month: 'short' }).replace('.', '');
+
+    cargarCategorias();
+    cargarGastos();
+    conectarEventos();
+    renderFormPrincipal();
+    renderFormEdicion();
+    renderHistorial();
+  }
+
+  init();
+})();
 </script>
 
 </body>
